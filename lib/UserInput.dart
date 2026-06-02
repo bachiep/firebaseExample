@@ -14,8 +14,6 @@ class _UserInputState extends State<UserInput> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _addressController = TextEditingController();
 
   bool _isSaving = false;
 
@@ -23,8 +21,6 @@ class _UserInputState extends State<UserInput> {
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
-    _addressController.dispose();
     super.dispose();
   }
 
@@ -39,8 +35,6 @@ class _UserInputState extends State<UserInput> {
       await FirebaseFirestore.instance.collection('Users').add({
         'name': _nameController.text.trim(),
         'email': _emailController.text.trim(),
-        'phone': _phoneController.text.trim(),
-        'address': _addressController.text.trim(),
         'createdAt': FieldValue.serverTimestamp(),
       });
 
@@ -51,8 +45,6 @@ class _UserInputState extends State<UserInput> {
       _formKey.currentState!.reset();
       _nameController.clear();
       _emailController.clear();
-      _phoneController.clear();
-      _addressController.clear();
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Da luu user vao Firestore.')),
@@ -130,30 +122,6 @@ class _UserInputState extends State<UserInput> {
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: _emailValidator,
-                ),
-                const SizedBox(height: 14),
-                TextFormField(
-                  controller: _phoneController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'So dien thoai',
-                    prefixIcon: Icon(Icons.phone_outlined),
-                  ),
-                  keyboardType: TextInputType.phone,
-                  textInputAction: TextInputAction.next,
-                  validator: _requiredValidator,
-                ),
-                const SizedBox(height: 14),
-                TextFormField(
-                  controller: _addressController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Dia chi',
-                    prefixIcon: Icon(Icons.home_outlined),
-                  ),
-                  minLines: 2,
-                  maxLines: 3,
-                  validator: _requiredValidator,
                 ),
                 const SizedBox(height: 20),
                 FilledButton.icon(

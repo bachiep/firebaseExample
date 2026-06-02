@@ -11,8 +11,8 @@ void main() {
     expect(find.text('User Input'), findsOneWidget);
     expect(find.text('Ho ten'), findsOneWidget);
     expect(find.text('Email'), findsOneWidget);
-    expect(find.text('So dien thoai'), findsOneWidget);
-    expect(find.text('Dia chi'), findsOneWidget);
+    expect(find.text('So dien thoai'), findsNothing);
+    expect(find.text('Dia chi'), findsNothing);
     expect(find.text('Luu vao Firestore'), findsOneWidget);
   });
 }
